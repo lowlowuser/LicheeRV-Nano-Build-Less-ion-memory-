@@ -43,13 +43,17 @@ sudo apt-get install -y build-essential gcc g++ make bison flex libssl-dev \
 ### 2. 获取源码（含子模块）
 
 ```bash
-git clone <your-fork-url> LicheeRV-Nano-Build
-cd LicheeRV-Nano-Build
+git clone https://github.com/lowlowuser/LicheeRV-Nano-Build-Less-ion-memory-.git
+cd LicheeRV-Nano-Build-Less-ion-memory-
 # 如果已经 clone 了，初始化子模块
 git submodule update --init --recursive
 ```
 
-### 3. 配置并编译
+### 3. 直接使用预编译镜像
+
+如果你不想自己编译，可以直接使用本仓库 Release 中提供的预编译镜像文件，烧录到 SD 卡即可使用。
+
+### 4. 配置并编译
 
 ```bash
 # 加载构建环境
@@ -62,7 +66,7 @@ defconfig sg2002_licheervnano_sd
 build_all
 ```
 
-### 4. 常用编译命令
+### 5. 常用编译命令
 
 | 命令 | 说明 |
 |------|------|
