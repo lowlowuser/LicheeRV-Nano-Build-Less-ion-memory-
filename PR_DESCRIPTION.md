@@ -80,15 +80,23 @@ build_all
 
 ## 注意事项
 
-### 并行编译竞态条件
+### 并行编译竞态条件（常见问题）
 
-如果在 **clean 后第一次编译** 时遇到以下错误：
+首次编译（clean 后）可能会遇到以下几种并行竞态导致的错误，**都不是代码问题**，直接**重新运行一次 `build_all`** 即可解决：
+
+**错误 1：内核头文件缺失**
 ```
 fatal error: linux/cvi_type.h: No such file or directory
 fatal error: linux/vi_snsr.h: No such file or directory
 ```
 
-这是并行编译的竞态条件问题（ISP sensor 驱动在内核头文件安装完成前就开始编译），**不是代码错误**。直接**重新运行一次 `build_all`** 即可解决。
+**错误 2：middleware 头文件缺失**
+```
+make[2]: *** No rule to make target '.../cvi_miniz/cvi_miniz.h', needed by '.../rw_json.o'.  Stop.
+ build middleware failed !!
+```
+
+这些错误是由于构建系统使用并行编译（make -j），某些依赖模块的头文件还没安装完成，其他模块就已经开始编译了。重新运行 `build_all` 时，依赖项已经编译好，就不会再出现这个问题。
 
 ### ION 大小调整适用场景
 
